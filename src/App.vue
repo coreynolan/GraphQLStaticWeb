@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <Quotes/>
+    <Quotes />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Quotes from './components/Quotes.vue';
+import Vue from "vue";
+import Quotes from "./components/Quotes.vue";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   components: {
-    Quotes
-  }
+    Quotes,
+  },
 });
 </script>
 
