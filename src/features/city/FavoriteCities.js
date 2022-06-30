@@ -1,15 +1,11 @@
 import { useSelector } from 'react-redux';
 
 const FavoriteCities = (props) => {
-	const { currentCity, arrayOfCities } = useSelector((state) => state.cities);
-
-    const {name, valid } = {...currentCity}
-
+	const favoriteCities = useSelector((state) => state.weather.favoriteCities);
 	return (
 		<div>
 			<h3>Favorite Cities</h3>
-			Current: {name} <br/>
-			Favorite cities: {arrayOfCities.length > 0 && arrayOfCities.map((city) => <div>{city}</div>)}
+			Favorite cities: {favoriteCities.length > 0 && favoriteCities.map((city) => <div>{city}</div>)}
 		</div>
 	);
 };

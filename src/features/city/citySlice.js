@@ -11,43 +11,24 @@ import { ADD_CITY, GET_CITY, REMOVE_CITY } from './cityConstants';
 // }
 
 
-const initialState = { currentCity: {
-    name: '',
-    valid: false
-}, arrayOfCities: [] };
+// const initialState = { arrayOfCities: [] };
 
+// export const citySlice = createSlice({
+// 	name: 'city',
+// 	initialState,
+// 	reducers: {
+// 		addCity: (state, {payload}) => {
+//             console.log(payload)
+//             state.arrayOfCities.indexOf(payload) === -1 ? state.arrayOfCities.push(payload) : console.log("This is already a favorite city!");
+// 		},
+// 		removeCity: (state, {payload}) => {
+//             state.arrayOfCities.indexOf(payload) === -1 ? console.log("This is not a favorite city!") : state.arrayOfCities.pop(payload);
+// 		}
+// 	}
+// });
 
-
-export const citySlice = createSlice({
-	name: 'city',
-	initialState,
-	reducers: {
-		addCity: (state, action) => {
-			console.log(action.payload);
-            state.arrayOfCities.indexOf(action.payload) === -1 ? state.arrayOfCities.push(action.payload) : console.log("This is already a favorite city!");
-		},
-		removeCity: (state, action) => {
-			console.log(action.payload);
-            state.arrayOfCities.indexOf(action.payload) === -1 ? console.log("This is not a favorite city!") : state.arrayOfCities.pop(action.payload);
-		},
-		getCity: (state, action) => {
-			console.log(state);
-			console.log(action);
-		},
-        setCity: (state, {payload}) => {
-            state.currentCity.name = payload
-
-            if (payload === '') {
-                state.currentCity.valid=true
-            } else {
-                state.currentCity.valid=true
-            }
-        }
-	}
-});
-
-export const { addCity, getCity, removeCity, setCity } = citySlice.actions;
-export default citySlice.reducer;
+// export const { addCity, getCity, removeCity, setCity } = citySlice.actions;
+// export default citySlice.reducer;
 
 // extraReducers: (builder) => {
 //     builder

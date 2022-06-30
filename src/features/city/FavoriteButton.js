@@ -3,6 +3,7 @@ import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {Checkbox} from "@mui/material";
 
 const FavoriteButton = (props) => {
+    // console.log(props)
     return (
         <Checkbox color="primary"
             {...props}
@@ -10,12 +11,12 @@ const FavoriteButton = (props) => {
             checkedIcon={<Favorite/>}
             size='large'
             sx={{
-                color: 'white',
+                color: 'red',
                 '&.Mui-checked': {
-                    color: 'white',
+                    color: 'red',
                 },
                 '&.Mui-disabled': {
-                    color: 'transparent',
+                    color: 'secondary',
                 }
             }}
         />

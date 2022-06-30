@@ -1,19 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import { Weather } from './features/weather/Weather';
 import './App.css';
+import { Container } from '@mui/material';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <Weather />
-       
-      </header>
-    </div>
-  );
+	return (
+		<Container maxWidth='sm' className='appBase'>
+			<Weather />
+		</Container>
+	);
 }
 
 export default App;
