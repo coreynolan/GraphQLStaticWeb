@@ -1,0 +1,3 @@
+const ADD_CITY = "ADD_CITY"
+const GET_CITY = "GET_CITY"
+const REMOVE_CITY = "REMOVE_CITY"
