@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { Flex, Text } from 'theme-ui';
 
 const WeatherDetails = (props) => {
-	const { country, region, name } = { ...props.location };
 
 	const scale = useSelector((state) => state.weather.tempScale);
 	const isFahr = scale === 'fahrenheit';
@@ -74,20 +73,22 @@ const WeatherDetails = (props) => {
 		return Math.max(daily_chance_of_rain, daily_chance_of_snow);
 	}
 
+	const tempScaleDisplay = isFahr ? 'F' : 'C';
+
 	const currentDisplay = () => {
 		return (
 			<Grid container justifyContent={'center'} className='mt-4 mb-4'>
 				<Grid item sm={3} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
 					{attachedIcon(condition.icon)}
-					<Text sx={{ fontSize: 16 }}>{props.current.condition.text}</Text>
+					<Text sx={{ fontSize: 16 }}>{condition.text}</Text>
 				</Grid>
 				<Grid item sm={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 					<div className='weathertemp'>
-						<Text sx={{ fontSize: 32 }}>{isFahr ? temp_f : temp_c}</Text> <Text sx={{ fontSize: 16 }}>{'\u00b0'}{isFahr ? 'F' : 'C'}</Text>
+						<Text sx={{ fontSize: 32 }}>{isFahr ? temp_f : temp_c}</Text> <Text sx={{ fontSize: 16 }}>{'\u00b0'}{tempScaleDisplay}</Text>
 					</div>
 					<Flex sx={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-						<Text sx={{ fontSize: 16, marginRight: '5px' }}>{isFahr ? maxtemp_f : maxtemp_c}{'\u00b0'}</Text>
-						<Text sx={{ fontSize: 16, marginLeft: '5px', opacity: 0.5 }}>{isFahr ? mintemp_f : mintemp_c}{'\u00b0'}</Text>
+						<Text sx={{ fontSize: 16, marginRight: '5px' }}>{isFahr ? maxtemp_f : maxtemp_c}{'\u00b0'}{tempScaleDisplay}</Text>
+						<Text sx={{ fontSize: 16, marginLeft: '5px', opacity: 0.5 }}>{isFahr ? mintemp_f : mintemp_c}{'\u00b0'}{tempScaleDisplay}</Text>
 					</Flex>
 				</Grid>
 				<Grid item sm={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -113,8 +114,7 @@ const WeatherDetails = (props) => {
 						</div>
 						<Flex sx={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 							<Text sx={{ fontSize: 20 }}>
-								{isFahr ? day.temp_f : day.temp_c}
-								{'\u00b0'}
+								{isFahr ? day.temp_f : day.temp_c}{'\u00b0'}{tempScaleDisplay}
 							</Text>
 						</Flex>
 						<Text sx={{ fontSize: 12 }}> {new Date(day.time).getHours()}:00</Text>
@@ -137,8 +137,8 @@ const WeatherDetails = (props) => {
 								{day.condition}
 							</Text>
 							<Flex sx={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-								<Text sx={{ fontSize: 16, marginRight: '5px' }}>{isFahr ? day.maxtemp_f : day.maxtemp_c}{'\u00b0'}</Text>
-								<Text sx={{ fontSize: 16, marginLeft: '5px', opacity: 0.5 }}>{isFahr ? day.mintemp_f : day.mintemp_c}{'\u00b0'}</Text>
+								<Text sx={{ fontSize: 16, marginRight: '5px' }}>{isFahr ? day.maxtemp_f : day.maxtemp_c}{'\u00b0'}{tempScaleDisplay}</Text>
+								<Text sx={{ fontSize: 16, marginLeft: '5px', opacity: 0.5 }}>{isFahr ? day.mintemp_f : day.mintemp_c}{'\u00b0'}{tempScaleDisplay}</Text>
 							</Flex>
 							<Text sx={{ fontSize: 16 }}>
 								{monthNames[new Date(day.date).getUTCMonth()]} {new Date(day.date).getUTCDate()}

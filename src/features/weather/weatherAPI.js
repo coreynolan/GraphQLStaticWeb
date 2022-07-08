@@ -15,3 +15,15 @@ export const fetchData = async (cityName, days) => {
 		return e;
 	}
 };
+
+export const fetchCity = async (cityName) => {
+	try {
+		const response = await fetch(`http://api.weatherapi.com/v1/timezone.json?key=428022b89cf14528ac663011222903&q=${cityName}`)
+		return await response.json();
+	}
+	catch (e) {
+		console.log("caught error!")
+		console.error(e);
+		return e;
+	}
+}

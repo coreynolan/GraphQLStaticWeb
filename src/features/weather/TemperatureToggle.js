@@ -1,18 +1,18 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useState } from 'react';
 import { setTempScale } from './weatherSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const TemperatureToggle = (props) => {
-
-	const scale = useSelector(state => state.weather.tempScale);
+	const scale = useSelector((state) => state.weather.tempScale);
 	const dispatch = useDispatch();
 	return (
 		<ToggleButtonGroup
 			color='primary'
 			value={scale}
+			style={{ alignSelf: 'center' }}
 			onChange={(event) => {
 				const newValue = event.target.value;
+				console.log(newValue)
 				localStorage.setItem('tempScale', newValue);
 				dispatch(setTempScale(newValue));
 			}}>

@@ -21,7 +21,7 @@ const ViewPrefToggle = (props) => {
 			<ToggleButton value='hourly' sx={{ borderRadius: '0 20px 20px 0' }}>
 				Hourly
 			</ToggleButton>
-            <ToggleButton value='threeday' sx={{ borderRadius: '0 20px 20px 0' }}>
+			<ToggleButton value='threeday' sx={{ borderRadius: '0 20px 20px 0' }}>
 				Three Day
 			</ToggleButton>
 		</ToggleButtonGroup>

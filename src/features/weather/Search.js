@@ -1,13 +1,11 @@
-import { Box, Grid, Input, TextField } from '@mui/material';
-import { current } from '@reduxjs/toolkit';
+import { Input } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-// import { addCity, removeCity } from '../city/citySlice';
 import FavoriteButton from '../city/FavoriteButton';
 import useDebounce from '../helpers/useDebounce';
-import TemperatureToggle from './TemperatureToggle';
-import { addCity, removeCity } from './weatherSlice';
+import ListButton from './ListButton';
+import { toggleFavorite } from './weatherSlice';
 
 const Search = ({ searchHandler }) => {
 	// Leaving for now - but look at API to see if we could pass units in!
@@ -15,34 +13,26 @@ const Search = ({ searchHandler }) => {
 
 	const debounceSearchCityName = useDebounce(values.name, 500);
 
+	// Ended up not using value.units so ignore that it's not in the dependency array
 	useEffect(() => {
-		console.log("debouncing")
-		// console.log(values)
-		// console.log(currentCity)
+		// console.log("debouncing")
 		if (debounceSearchCityName) {
-			// console.log('settings');
-			// console.log(currentCity);
 			searchHandler({ name: debounceSearchCityName, config: { units: values.units } });
-			// setIsDisabled(!currentCity.valid);
-			// setFavorite(favoriteCities.includes(currentCity.printed));
 		}
 	}, [debounceSearchCityName]);
-
-	// const arrayOfCities = useSelector((state) => state.cities.arrayOfCities);
-	const favoriteCities = useSelector((state) => state.weather.favoriteCities);
 
 	const currentCity = useSelector(
 		({ weather }) => ({
 			valid: weather.currentCity.valid,
 			name: weather.currentCity.name,
 			printed: weather.currentCity.printed,
-			favorite: favoriteCities.includes(weather.currentCity.printed)
+			favorite: weather.currentCity.favorite
 		}),
 		shallowEqual
 	);
 
+
 	const handleSubmit = (event) => {
-		// console.log('handle submit before search handler');
 		event.preventDefault();
 		searchHandler({ name: values.name, config: { units: values.units } });
 	};
@@ -55,16 +45,10 @@ const Search = ({ searchHandler }) => {
 
 	const dispatch = useDispatch();
 
-	const toggleFavorite = (event) => {
+	const toggleCurrentCityFavoriteStatus = (event) => {
+		console.log(currentCity)
 		if (currentCity.valid) {
-			if (!favoriteCities.includes(currentCity.printed)) {
-				console.log('Attempting to add city to favorites...');
-				dispatch(addCity(currentCity.printed));
-			} else {
-				console.log('Attempting to remove city from favorites...');
-				dispatch(removeCity(currentCity.printed));
-			}
-			// setFavorite(!isFavorite);
+			dispatch(toggleFavorite())
 		} else {
 			console.log('Current city is not valid.');
 		}
@@ -73,9 +57,10 @@ const Search = ({ searchHandler }) => {
 	return (
 		<form onSubmit={handleSubmit} noValidate>
 			<div className='newFlexBox'>
-				<Input color='primary' fullWidth type='text' name='name' value={values.name} onChange={handleChange} placeholder='Enter a city...' />
-				<FavoriteButton onClick={() => toggleFavorite()} disabled={!currentCity.valid} checked={!!favoriteCities.includes(currentCity.printed)} />
-				<TemperatureToggle props={() => searchHandler()} />
+				<Input color='primary' fullWidth type='text' name='name' value={values.name} onChange={handleChange} placeholder='Enter a city...' autoFocus />
+				<FavoriteButton onClick={() => toggleCurrentCityFavoriteStatus()} disabled={!currentCity.valid} checked={!!currentCity.favorite} />
+				{/* <TemperatureToggle props={() => searchHandler()} /> */}
+				<ListButton />
 			</div>
 		</form>
 	);
