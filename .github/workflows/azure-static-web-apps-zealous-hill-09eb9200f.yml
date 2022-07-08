@@ -15,9 +15,19 @@ jobs:
         runs-on: ubuntu-latest
         name: Build and Deploy Job
         steps:
-            - uses: actions/checkout@v2
+            - name: 
+              uses: actions/checkout@v2
               with:
                   submodules: true
+            - name: Set up Node.js version
+              uses: actions/setup-node@v1
+              with:
+                  node-version: '14.x'
+            - name: npm install, build
+              run: |
+                  npm install
+                  CI='' npm run build:test --if-present
+
             - name: Build And Deploy
               id: builddeploy
               uses: Azure/static-web-apps-deploy@v1
